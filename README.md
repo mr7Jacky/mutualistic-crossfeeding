@@ -5,7 +5,7 @@
 
 #### DOI
 
-#### Files
+#### Files Directories
 * [bin/](./mutualistic-crossfeeding/bin)
   * [commensalism](./mutualistic-crossfeeding/bin/commensalism)
   * [mutualism](./mutualistic-crossfeeding/bin/mutualism)
@@ -64,3 +64,6 @@ Parameter description:
       1. Colony are integers: 0 represents empty, 1 and 2 represent two types of species
       2. Nutrient are floating numbers representing the amount of nutrient produced in each lattice.
    2. Output files are in the format of `.txt` file, which can be easily accessed using common programming language.
+
+#### License
+Distributed under the MIT License. See LICENSE.txt for more information.
