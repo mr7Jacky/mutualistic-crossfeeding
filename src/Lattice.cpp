@@ -14,7 +14,7 @@ lattice::lattice(char* fname, char* outDir)
 {
     srand (time(NULL));
     P = ReadParameters(fname, outDir);
-    D = new Array2D<data>(P.BoxX,P.BoxY);
+    D = new Array2D<datax>(P.BoxX,P.BoxY);
     CDF = new Array2D<double>(P.BoxX,P.BoxY);
     Del = new Array2D<double>(P.BoxX,P.BoxY);
     //putInitialCells(2);
@@ -24,8 +24,6 @@ lattice::lattice(char* fname, char* outDir)
     //readData("fields_data.lattice");
     searchLevels = ((int) log(P.BoxX)/log(2)) -1;
 };
-
-lattice::lattice() {};
 
 lattice::~lattice()
 {
@@ -66,13 +64,14 @@ void lattice::outputAllInfo(string path)
 {
     FILE* out;
 #ifdef _WIN32
-    fopen_s(&out, path, "w"); 
+    fopen_s(&out, path.c_str(), "w"); 
 #else
     out = fopen(path.c_str(), "w");
 #endif
     D->OutputAll(out);
     CDF->Append(out);
     Del->Append(out);
+    assert(out != 0);
     fclose(out);
 };
 
@@ -113,7 +112,6 @@ void lattice::putInitialCellsRandom(int numCells, int sideLen)
     maxY = 0;
     int mid = P.BoxX / 2;
     for(int i = 0; i < numCells; i++) {
-        srand(time(0));
         while (true) {
             x = rand() % (sideLen + 1) + (mid - sideLen / 2);
             y = rand() % (sideLen + 1) + (mid - sideLen / 2);
@@ -128,7 +126,6 @@ void lattice::putInitialCellsRandom(int numCells, int sideLen)
         }
     }
     for(int i = 0; i < numCells; i++) {
-        srand(time(0));
         while (true) {
             x = rand() % (sideLen + 1) + (mid - sideLen / 2);
             y = rand() % (sideLen + 1) + (mid - sideLen / 2);
@@ -173,6 +170,7 @@ void lattice::putInitialCellsSideBySide(int numberOfInitialCellsPerRow)
 /*
  * Initialize with a given matrix
  */
+#ifdef MUTUALISM
 void lattice::putInitialCellsWithMatrix(string path)
 {
     ifstream file;
@@ -218,7 +216,7 @@ void lattice::putInitialCellsWithMatrix(string path)
     }
     //printf("minX = %d, minY = %d, maxX = %d, maxY = %d\n", minX, minY, maxX, maxY);
 };
-
+#endif
 
 void lattice::calculateEventRate()
 {
@@ -477,7 +475,7 @@ void lattice::updateNutrientB(int i, int j, int oldNutrientB, int newNutrientB)
 #endif
 #endif
     D[0](i,j).nutrientB = newNutrientB;
-    double dk = P.diffusionB*(newNutrientB-oldNutrientB)/P.BoxLength/P.BoxLength;
+    double dk = P.diffusionB*((double)newNutrientB- (double)oldNutrientB)/P.BoxLength/P.BoxLength;
     D[0](i,j).k7 = P.diffusionB*newNutrientB/P.BoxLength/P.BoxLength;
     if (D[0](i,j).cellType==1)
     {
@@ -1032,6 +1030,7 @@ void lattice::writeToFile(int OutputID)
     D->Output(out);
 //    CDF->Append(out);
 //    Del->Append(out);
+    assert(out != 0);
     fclose(out);
 };
 

@@ -6,7 +6,7 @@
 using namespace std;
 struct eventInfo
 {
-    eventInfo(){coord.x = 0; coord.y = 0; };
+    eventInfo() { coord.x = 0; coord.y = 0; rate = 0.0; };
     eventInfo(const eventInfo &e){coord.x = e.coord.x; coord.y = e.coord.y; rate = e.rate;};
     void operator=(const eventInfo &e){coord.x = e.coord.x; coord.y = e.coord.y; rate = e.rate;};
     IntCoord2D coord;
@@ -18,7 +18,6 @@ class lattice
 public:
     // Initialization and destory
     lattice(char* fname, char* outDir);
-    lattice();
     ~lattice();
 
     // Initialization of Colony
@@ -57,7 +56,7 @@ public:
 #endif
 private:
     param P;
-    Array2D<data>* D;
+    Array2D<datax>* D;
     Array2D<double>* CDF; // Cumulative Distribution Function for events
     Array2D<double>* Del;
     double totalEventWeight;

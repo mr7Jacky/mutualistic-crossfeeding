@@ -178,7 +178,7 @@ inline void Array2D<int>::Output(FILE* FID)
 };
 
 template <>
-inline void Array2D<data>::Output(FILE* FID)
+inline void Array2D<datax>::Output(FILE* FID)
 {
     rewind(FID);
     for (int yi = 0; yi < m_Size.y; yi++)
@@ -211,7 +211,7 @@ inline void Array2D<data>::Output(FILE* FID)
 };
 
 template <>
-inline void Array2D<data>::OutputAll(FILE* FID)
+inline void Array2D<datax>::OutputAll(FILE* FID)
 {
     rewind(FID);
     for (int yi = 0; yi < m_Size.y; yi++)
@@ -334,10 +334,10 @@ inline void Array2D<data>::OutputAll(FILE* FID)
 template <>
 inline double Array2D<double>::linear_interp(const int x0, const int y0, const double dx, const double dy)
 {
-	float x = dx<0? 1+dx: dx;
-	float y = dy<0? 1+dy: dy;
+	double x = dx<0? 1+dx: dx;
+    double y = dy<0? 1+dy: dy;
 
-	return Data[Index(x0, y0)]*(1-x)*(1-y) + Data[Index(x0+1, y0)]*x*(1-y) + Data[Index(x0, y0+1)]*(1-x)*y + Data[Index(x0+1, y0+1)]*x*y;
+	return Data[Index(x0, y0)]*(1.0-x)*(1.0-y) + Data[Index(x0+1, y0)]*x*(1.0-y) + Data[Index(x0, y0+1)]*(1.0-x)*y + Data[Index(x0+1, y0+1)]*x*y;
 };
 
 template <>

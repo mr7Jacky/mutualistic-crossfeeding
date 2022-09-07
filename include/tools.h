@@ -35,7 +35,7 @@ inline void MyAssert(bool b, const char* msg)
 template<typename T>
 struct Coord2D
 {
-	Coord2D(){}
+    Coord2D() { x = (T)0; y = (T)0; }
 	Coord2D(T _x, T _y): x(_x), y(_y) {}
 
 	T x;
@@ -60,9 +60,9 @@ inline double min(double n1, double n2)
 	return n1<n2? n1: n2;
 }
 
-struct data
+struct datax
 {
-    data()
+    datax()
     {
         cellType = 0;
         nutrientB = 0;

@@ -1,9 +1,11 @@
 #include <cstdlib>
 #include <signal.h>
 #include <iostream>
-#include <unistd.h>
+//#include <unistd.h>
 
 #include "Lattice.h"
+
+#include "Array.h"
 
 //
 // #####################################
